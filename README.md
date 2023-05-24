@@ -30,6 +30,6 @@ npm install react-leaflet
 
 npm install next-cloudinary
 
-
+npm install date-fns
 
 ```
