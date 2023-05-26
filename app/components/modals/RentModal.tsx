@@ -6,7 +6,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import useRentModal from "@/app/hooks/useRentModal";
 
-import Map from "../Map";
+// import Map from "../Map";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
@@ -63,14 +63,14 @@ const RentModal = () => {
   const bathroomCount = watch("bathroomCount");
   const imageSrc = watch("imageSrc");
 
-  // 이걸 사용해야 해당 위치로 지도가 이동하는데 에러가 발생함
-  // const Map = useMemo(
-  //   () =>
-  //     dynamic(() => import("../Map"), {
-  //       ssr: false,
-  //     }),
-  //   [location]
-  // );
+  const Map = useMemo(
+    () =>
+      dynamic(() => import("../Map"), {
+        ssr: false,
+      }),
+
+    [location]
+  );
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -160,6 +160,7 @@ const RentModal = () => {
           value={location}
           onChange={(value) => setCustomValue("location", value)}
         />
+        {/* @ts-ignore */}
         <Map center={location?.latlng} />
       </div>
     );
