@@ -1,29 +1,29 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
-import axios from "axios";
 import { toast } from "react-hot-toast";
+import axios from "axios";
+import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
 
-import Container from "../components/Container";
-import Heading from "../components/Heading";
-import ListingCard from "../components/listings/ListingCard";
+import { SafeReservation, SafeUser } from "@/app/types";
 
-import { SafeReservation, SafeUser } from "../types";
+import Heading from "@/app/components/Heading";
+import Container from "@/app/components/Container";
+import ListingCard from "@/app/components/listings/ListingCard";
 
-interface ITripsClientProps {
+interface TripsClientProps {
   reservations: SafeReservation[];
   currentUser?: SafeUser | null;
 }
 
-const TripsClient: React.FC<ITripsClientProps> = ({
+const TripsClient: React.FC<TripsClientProps> = ({
   reservations,
   currentUser,
 }) => {
   const router = useRouter();
   const [deletingId, setDeletingId] = useState("");
 
-  const onCancle = useCallback(
+  const onCancel = useCallback(
     (id: string) => {
       setDeletingId(id);
 
@@ -46,22 +46,31 @@ const TripsClient: React.FC<ITripsClientProps> = ({
   return (
     <Container>
       <Heading
-        title="trips"
-        subtitle="Where you have been and where you are going"
+        title="Trips"
+        subtitle="Where you've been and where you're going"
       />
       <div
-        className="my-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
-                  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8"
+        className="
+          mt-10
+          grid 
+          grid-cols-1 
+          sm:grid-cols-2 
+          md:grid-cols-3 
+          lg:grid-cols-4
+          xl:grid-cols-5
+          2xl:grid-cols-6
+          gap-8
+        "
       >
-        {reservations.map((reservation) => (
+        {reservations.map((reservation: any) => (
           <ListingCard
             key={reservation.id}
             data={reservation.listing}
             reservation={reservation}
             actionId={reservation.id}
-            onAction={onCancle}
+            onAction={onCancel}
             disabled={deletingId === reservation.id}
-            actionLabel="Cancle Reservation"
+            actionLabel="Cancel reservation"
             currentUser={currentUser}
           />
         ))}

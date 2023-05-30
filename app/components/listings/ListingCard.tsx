@@ -1,11 +1,13 @@
 "use client";
 
-import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
-import { useRouter } from "next/navigation";
-import useCountries from "@/app/hooks/useCountries";
-import { useCallback, MouseEvent, useMemo } from "react";
-import { format } from "date-fns";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useCallback, useMemo } from "react";
+import { format } from "date-fns";
+
+import useCountries from "@/app/hooks/useCountries";
+import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
+
 import HeartButton from "../inputs/HeartButton";
 import Button from "../Button";
 
@@ -34,16 +36,25 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const location = getByValue(data.locationValue);
 
   const handleCancel = useCallback(
-    (e: MouseEvent<HTMLButtonElement>) => {
+    (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
 
       if (disabled) {
         return;
       }
+
       onAction?.(actionId);
     },
-    [onAction, actionId, disabled]
+    [disabled, onAction, actionId]
   );
+
+  const price = useMemo(() => {
+    if (reservation) {
+      return reservation.totalPrice;
+    }
+
+    return data.price;
+  }, [reservation, data.price]);
 
   const reservationDate = useMemo(() => {
     if (!reservation) {
@@ -56,28 +67,40 @@ const ListingCard: React.FC<ListingCardProps> = ({
     return `${format(start, "PP")} - ${format(end, "PP")}`;
   }, [reservation]);
 
-  const price = useMemo(() => {
-    if (reservation) {
-      return reservation.totalPrice;
-    }
-
-    return data.price;
-  }, [reservation, data.price]);
-
   return (
     <div
       onClick={() => router.push(`/listings/${data.id}`)}
       className="col-span-1 cursor-pointer group"
     >
       <div className="flex flex-col gap-2 w-full">
-        <div className="aspect-square w-full relative overflow-hidden rounded-xl">
+        <div
+          className="
+            aspect-square 
+            w-full 
+            relative 
+            overflow-hidden 
+            rounded-xl
+          "
+        >
           <Image
             fill
-            alt="listing"
+            className="
+              object-cover 
+              h-full 
+              w-full 
+              group-hover:scale-110 
+              transition
+            "
             src={data.imageSrc}
-            className="object-cover h-full w-full group-hover:scale-110 transition"
+            alt="Listing"
           />
-          <div className="absolute top-3 right-3">
+          <div
+            className="
+            absolute
+            top-3
+            right-3
+          "
+          >
             <HeartButton listingId={data.id} currentUser={currentUser} />
           </div>
         </div>
