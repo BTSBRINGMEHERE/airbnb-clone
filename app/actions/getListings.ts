@@ -34,6 +34,7 @@ export default async function getListings(params: IListingsParams) {
       query.category = category;
     }
 
+    // +roomCount, +guestCount, +bathroomCount 앞에 +는 내가 선택한 수량의 이상의 값을 보여주기 위해서 (ex. 3개를 선택하면 3개 이상 3~)
     if (roomCount) {
       query.roomCount = {
         gte: +roomCount,
