@@ -1,35 +1,8 @@
-## Getting Started
+## 에어비앤비 클론
 
-First, run the development server:
+Nextjs를 이용해서 에어비앤비 클론코딩을 만들었습니다.
+학습차원에서 유튜브 영상을 보며 만들었고 영상을 보면서 최신 Nextjs버전과 추가적으로 prisma, mongodb를 배울 수 있었습니다.
 
 ```
-npm run dev
-
-npm install -D prisma
-npx prisma init
-
-npm install axios
-
-npm install next-auth @prisma/client @next-auth/prisma-adapter
-
-npm install bcrypt
-npm install -D @types/bcrypt
-
-npm install react-icons
-npm install react-hot-toast
-
-npm install react-hook-form
-
-npm install query-string
-
-npm install world-countries
-npm install react-select
-npm install leaflet
-npm install -D @types/leaflet
-npm install react-leaflet
-
-npm install next-cloudinary
-
-npm install date-fns
-
+npm i
 ```
