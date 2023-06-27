@@ -26,11 +26,10 @@ const ListingPage = async ({ params }: { params: IParams }) => {
   return (
     <ClientOnly>
       <ListingClient
-        // @ts-ignore
+        // @ts-expect-error
         listing={listing}
-        // @ts-ignore
         reservations={reservations}
-        // @ts-ignore
+        // @ts-expect-error
         currentUser={currentUser}
       />
     </ClientOnly>

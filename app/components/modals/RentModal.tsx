@@ -68,7 +68,6 @@ const RentModal = () => {
       dynamic(() => import("../Map"), {
         ssr: false,
       }),
-
     [location]
   );
 
